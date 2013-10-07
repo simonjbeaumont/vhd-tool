@@ -210,7 +210,7 @@ let stream_raw common c s prezeroed ?(progress = no_progress_bar) () =
         c.Channels.really_write data >>= fun () ->
         return Int64.(of_int (Cstruct.len data))
       | Element.Empty n -> (* must be prezeroed *)
-        c.Channels.skip (Int64.(mul n 512L));
+        c.Channels.skip (Int64.(mul n 512L)) >>= fun () ->
         assert prezeroed;
         return 0L
       | _ -> fail (Failure (Printf.sprintf "unexpected stream element: %s" (Element.to_string x))) ) >>= fun work ->
