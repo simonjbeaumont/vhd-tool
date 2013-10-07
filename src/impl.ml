@@ -268,8 +268,7 @@ let endpoint_of_string = function
 let socket sockaddr =
   let family = match sockaddr with
   | Lwt_unix.ADDR_INET(_, _) -> Unix.PF_INET
-  | Lwt_unix.ADDR_UNIX _ -> Unix.PF_UNIX
-  | _ -> failwith "unsupported sockaddr type" in
+  | Lwt_unix.ADDR_UNIX _ -> Unix.PF_UNIX in
   Lwt_unix.socket family Unix.SOCK_STREAM 0
 
 let colon = Re_str.regexp_string ":"
